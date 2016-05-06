@@ -6,6 +6,7 @@ var session = require('express-session');
 var router = express.Router();
 var partials =require('express-partials'); 
 var flash = require('connect-flash');//req.flash()使用 
+var _ = require('lodash');
  
 router.use(partials());//这里  
 router.use(flash());
@@ -85,13 +86,13 @@ router.use(function(req,res,next){
       if (user)
         err = 'Username already exists.';
       if (err) {
-        req.session.error = err;
+        req.session.error = _.toString(err);
         return res.redirect('/reg');
       }
       //如果不存在則新增用戶
       newUser.save(function(err) {
         if (err) {
-          req.session.error = err;
+          req.session.error = _.toString(err);
           return res.redirect('/reg');
         }
         req.session.user = newUser;
@@ -138,7 +139,7 @@ router.get('/u/:user', function(req, res) {
     }
     Post.get(user.name, function(err, posts) {
       if (err) {
-        req.session.error = err;
+        req.session.error = _.toString(err);
         return res.redirect('/');
       }
       res.render('user', {
@@ -155,7 +156,7 @@ router.post('/post', function(req, res) {
   var post = new Post(currentUser.name, req.body.post);
   post.save(function(err) {
     if (err) {
-      req.session.error = err;
+      req.session.error = _.toString(err);
       return res.redirect('/');
     }
     req.session.success = '發表成功';
