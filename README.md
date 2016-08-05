@@ -3,7 +3,7 @@
 * git clone https://github.com/zhongchengsu/myblog.git
 * cd myblog
 * npm install
-* npm start (before this step, do "Prepare DB")
+* npm start (before this step, do "Prepare DB".After this command the package.json is check, then ./bin/www is run.)
 * open browser http://127.0.0.1:3000
 
 ##Prepare DB
